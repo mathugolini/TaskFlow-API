@@ -24,24 +24,17 @@ public class ProjetoController {
 
     @GetMapping
     public ResponseEntity<?> listarProjetos() {
-        return projetoService.listarProjetos().isEmpty()
-                ? ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não há projetos cadastrados.")
-                : ResponseEntity.ok(projetoService.listarProjetos());
+        return ResponseEntity.ok(projetoService.listarProjetos());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> buscarProjetoPorId(@PathVariable Long id) {
-        Optional<Projeto> projeto = projetoService.buscarProjetoPorId(id);
-        if (projeto.isPresent()) {
-            return ResponseEntity.ok(projeto.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Projeto com ID " + id + " não encontrado ou já foi deletado.");
-        }
+    public ResponseEntity<Optional<Projeto>> buscarProjetoPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(projetoService.buscarProjetoPorId(id));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deletarProjeto(@PathVariable Long id) {
-        return projetoService.buscarProjetoPorId(id).map(projeto -> { projetoService.deletarProjeto(id); return ResponseEntity.noContent().build(); }).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+        projetoService.deletarProjeto(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Projeto com ID " + id + " deletado com sucesso.");
     }
 }

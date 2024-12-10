@@ -1,5 +1,8 @@
 package hugolini.taskflowapi.service;
 
+import hugolini.taskflowapi.exceptions.ProjetoNaoEncontradoException;
+import hugolini.taskflowapi.exceptions.TarefaNaoEncontradaException;
+import hugolini.taskflowapi.exceptions.TituloTarefaObrigatorioException;
 import hugolini.taskflowapi.model.Projeto;
 import hugolini.taskflowapi.model.Tarefa;
 import hugolini.taskflowapi.repository.TarefaRepository;
@@ -22,35 +25,28 @@ public class TarefaService {
 
     @Transactional
     public Tarefa criarTarefa(Tarefa tarefa) {
-        if (tarefa.getTitulo() == null || tarefa.getTitulo().isEmpty()) {
-            throw new IllegalArgumentException("O título da tarefa é obrigatório.");
-        }
 
+        if (tarefa.getTitulo() == null || tarefa.getTitulo().isEmpty()) {
+            throw new TituloTarefaObrigatorioException();
+        }
         Projeto projeto = projetoService.buscarProjetoPorId(tarefa.getProjeto().getId())
-                .orElseThrow(() -> new IllegalArgumentException("Projeto não encontrado."));
+                .orElseThrow(() -> new ProjetoNaoEncontradoException(tarefa.getProjeto().getId()));
 
         if (projeto.getId() != null) {
             projeto = entityManager.merge(projeto);
         } else {
             entityManager.persist(projeto);
         }
-
         tarefa.setProjeto(projeto);
         return tarefaRepository.save(tarefa);
     }
 
-
-
     @Transactional
     public Tarefa atualizarStatusTarefa(Long id, Tarefa tarefaAtualizada) {
         Tarefa tarefa = tarefaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Tarefa não encontrada com ID: " + id));
-
+                .orElseThrow(() -> new TarefaNaoEncontradaException(id));
         if (tarefaAtualizada.getStatus() != null) {
             tarefa.setStatus(tarefaAtualizada.getStatus());
-        }
-        if (tarefaAtualizada.getDescricao() != null) {
-            tarefa.setDescricao(tarefaAtualizada.getDescricao());
         }
         return tarefaRepository.save(tarefa);
     }
@@ -58,7 +54,7 @@ public class TarefaService {
     @Transactional
     public boolean deletarTarefa(Long id) {
         if (!tarefaRepository.existsById(id)) {
-            throw new IllegalArgumentException("Tarefa não encontrada.");
+            throw new TarefaNaoEncontradaException(id);
         }
         tarefaRepository.deleteById(id);
         return true;
