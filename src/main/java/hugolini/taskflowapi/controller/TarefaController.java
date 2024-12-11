@@ -1,5 +1,6 @@
 package hugolini.taskflowapi.controller;
 
+import hugolini.taskflowapi.dto.TarefaDTO;
 import hugolini.taskflowapi.model.Tarefa;
 import hugolini.taskflowapi.service.TarefaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +17,17 @@ public class TarefaController {
     private TarefaService tarefaService;
 
     @PostMapping
-    public ResponseEntity <Tarefa> criarTarefa(@RequestBody @Validated Tarefa tarefa) {
+    public ResponseEntity <Tarefa> criarTarefa(@RequestBody @Validated TarefaDTO tarefa) throws Exception {
         return ResponseEntity.status(HttpStatus.CREATED).body(tarefaService.criarTarefa(tarefa));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Tarefa> atualizarStatusTarefa(@PathVariable Long id, @RequestBody Tarefa tarefaAtualizada) {
+    public ResponseEntity<Tarefa> atualizarStatusTarefa(@PathVariable String id, @RequestBody Tarefa tarefaAtualizada) throws Exception {
         return ResponseEntity.status(HttpStatus.CREATED).body(tarefaService.atualizarStatusTarefa(id, tarefaAtualizada));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarTarefa(@PathVariable Long id) {
+    public ResponseEntity<Void> deletarTarefa(@PathVariable String id) throws Exception {
         return tarefaService.deletarTarefa(id)
                 ? ResponseEntity.noContent().build()
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
