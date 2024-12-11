@@ -1,6 +1,6 @@
 package hugolini.taskflowapi.exceptions;
 
-public class TituloTarefaObrigatorioException extends RuntimeException{
+public class TituloTarefaObrigatorioException extends Exception{
 
     public TituloTarefaObrigatorioException() {
         super("O título da tarefa é obrigatório.");

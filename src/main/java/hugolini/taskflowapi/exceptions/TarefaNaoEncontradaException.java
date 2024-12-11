@@ -1,7 +1,9 @@
 package hugolini.taskflowapi.exceptions;
 
-public class TarefaNaoEncontradaException extends RuntimeException {
-    public TarefaNaoEncontradaException(Long id) {
+import java.util.UUID;
+
+public class TarefaNaoEncontradaException extends Exception {
+    public TarefaNaoEncontradaException(String id) {
         super("Tarefa não encontrada com ID: " + id);
     }
 }

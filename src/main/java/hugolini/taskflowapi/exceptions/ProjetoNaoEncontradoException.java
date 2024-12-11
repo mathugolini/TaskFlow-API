@@ -1,8 +1,10 @@
 package hugolini.taskflowapi.exceptions;
 
-public class ProjetoNaoEncontradoException extends RuntimeException {
+import java.util.UUID;
 
-    public ProjetoNaoEncontradoException(Long id) {
+public class ProjetoNaoEncontradoException extends Exception {
+
+    public ProjetoNaoEncontradoException(String id) {
         super("Projeto com ID " + id + " não encontrado ou já foi deletado.");
     }
 }
