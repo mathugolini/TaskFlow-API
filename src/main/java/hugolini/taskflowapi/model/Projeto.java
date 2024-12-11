@@ -2,19 +2,18 @@ package hugolini.taskflowapi.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 public class Projeto {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(length = 36)
+    private String id;
 
-    @NotBlank(message = "O nome do projeto é obrigatório.")
     @Column(nullable = false)
     private String nome;
 
@@ -32,16 +31,17 @@ public class Projeto {
     }
 
     public Projeto(String nome, String descricao) {
+        this.id = UUID.randomUUID().toString();
         this.nome = nome;
         this.descricao = descricao;
         this.dataCriacao = LocalDate.now();
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -1,17 +1,18 @@
 package hugolini.taskflowapi.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import hugolini.taskflowapi.enums.StatusTarefaEnum;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
+
+import java.util.UUID;
 
 @Entity
 public class Tarefa {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(length = 36)
+    private String id;
 
-    @NotBlank(message = "O título da tarefa é obrigatório.")
     @Column(nullable = false)
     private String titulo;
 
@@ -19,7 +20,7 @@ public class Tarefa {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private StatusTarefa status;
+    private StatusTarefaEnum status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "projeto_id", nullable = false)
@@ -29,18 +30,19 @@ public class Tarefa {
     public Tarefa() {
     }
 
-    public Tarefa(String titulo, String descricao, StatusTarefa status, Projeto projeto) {
+    public Tarefa(String titulo, String descricao, StatusTarefaEnum status, Projeto projeto) {
+        this.id = UUID.randomUUID().toString();
         this.titulo = titulo;
         this.descricao = descricao;
         this.status = status;
         this.projeto = projeto;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -60,14 +62,6 @@ public class Tarefa {
         this.descricao = descricao;
     }
 
-    public StatusTarefa getStatus() {
-        return status;
-    }
-
-    public void setStatus(StatusTarefa status) {
-        this.status = status;
-    }
-
     public Projeto getProjeto() {
         return projeto;
     }
@@ -76,14 +70,17 @@ public class Tarefa {
         this.projeto = projeto;
     }
 
+    public StatusTarefaEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusTarefaEnum status) {
+        this.status = status;
+    }
+
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
     }
 
-    public enum StatusTarefa {
-        PENDENTE,
-        EM_ANDAMENTO,
-        CONCLUIDA
-    }
 }
