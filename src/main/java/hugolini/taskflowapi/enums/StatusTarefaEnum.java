@@ -1,2 +1,7 @@
-package hugolini.taskflowapi.enums;public class StatusTarefa {
+package hugolini.taskflowapi.enums;
+
+public enum StatusTarefaEnum {
+    PENDENTE,
+    EM_ANDAMENTO,
+    CONCLUIDA
 }
