@@ -1,4 +1,4 @@
-package hugolini.taskflowapi.annotations;
+package hugolini.taskflowapi.annotations.projeto;
 
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;

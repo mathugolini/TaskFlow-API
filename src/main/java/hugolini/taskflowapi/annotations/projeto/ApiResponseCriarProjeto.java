@@ -1,4 +1,4 @@
-package hugolini.taskflowapi.annotations.tarefa;
+package hugolini.taskflowapi.annotations.projeto;
 
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -15,18 +15,13 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Tarefa deletada com sucesso",
+        @ApiResponse(responseCode = "200", description = "Operação realizada com sucesso"),
+        @ApiResponse(responseCode = "400", description = "Requisição mal formada",
                 content = @Content(schema = @Schema(implementation = ErrorResponse.class),
                         examples = @ExampleObject(value = "{\n" +
-                                "  \"message\": \"Tarefa com ID 73716d37-47c7-4deb-871d-e5d64849439f deletado com sucesso.\"\n" +
-                                "}"))
-        ),
-        @ApiResponse(responseCode = "404", description = "Tarefa não encontrado para deleção.",
-                content = @Content(schema = @Schema(implementation = ErrorResponse.class),
-                        examples = @ExampleObject(value = "{\n" +
-                                "  \"message\": \"Tarefa não encontrada com ID: 73716d37-47c7-4deb-871d-e5d64849439f\"\n" +
+                                "  \"message\": \"O nome do projeto é obrigatório.\"\n" +
                                 "}"))
         ),
 })
-public @interface ApiResponseDeletarTarefa {
+public @interface ApiResponseCriarProjeto {
 }

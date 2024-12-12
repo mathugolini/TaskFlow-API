@@ -15,18 +15,13 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Tarefa deletada com sucesso",
-                content = @Content(schema = @Schema(implementation = ErrorResponse.class),
-                        examples = @ExampleObject(value = "{\n" +
-                                "  \"message\": \"Tarefa com ID 73716d37-47c7-4deb-871d-e5d64849439f deletado com sucesso.\"\n" +
-                                "}"))
-        ),
-        @ApiResponse(responseCode = "404", description = "Tarefa não encontrado para deleção.",
+        @ApiResponse(responseCode = "200", description = "Tarefa atualizada com sucesso"),
+        @ApiResponse(responseCode = "404", description = "Tarefa não encontrada.",
                 content = @Content(schema = @Schema(implementation = ErrorResponse.class),
                         examples = @ExampleObject(value = "{\n" +
                                 "  \"message\": \"Tarefa não encontrada com ID: 73716d37-47c7-4deb-871d-e5d64849439f\"\n" +
                                 "}"))
         ),
 })
-public @interface ApiResponseDeletarTarefa {
+public @interface ApiResponseAtualizaStatusTarefa {
 }
