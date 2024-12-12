@@ -1,4 +1,4 @@
-package hugolini.taskflowapi.exceptions;
+package hugolini.taskflowapi.exceptions.projeto;
 
 public class ProjetosSemCadastroException extends Exception {
 

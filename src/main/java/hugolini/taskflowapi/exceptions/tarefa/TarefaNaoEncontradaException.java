@@ -1,4 +1,4 @@
-package hugolini.taskflowapi.exceptions;
+package hugolini.taskflowapi.exceptions.tarefa;
 
 import java.util.UUID;
 

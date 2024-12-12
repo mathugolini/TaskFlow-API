@@ -1,4 +1,4 @@
-package hugolini.taskflowapi.exceptions;
+package hugolini.taskflowapi.exceptions.tarefa;
 
 public class TituloTarefaObrigatorioException extends Exception{
 

@@ -1,5 +1,11 @@
 package hugolini.taskflowapi.exceptions;
 
+import hugolini.taskflowapi.exceptions.projeto.ProjetoNaoEncontradoException;
+import hugolini.taskflowapi.exceptions.projeto.ProjetoNaoExisteException;
+import hugolini.taskflowapi.exceptions.projeto.ProjetosSemCadastroException;
+import hugolini.taskflowapi.exceptions.tarefa.TarefaDuplicadaException;
+import hugolini.taskflowapi.exceptions.tarefa.TarefaNaoEncontradaException;
+import hugolini.taskflowapi.exceptions.tarefa.TituloTarefaObrigatorioException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
