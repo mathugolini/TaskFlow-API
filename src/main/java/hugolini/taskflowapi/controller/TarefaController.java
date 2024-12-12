@@ -1,5 +1,6 @@
 package hugolini.taskflowapi.controller;
 
+import hugolini.taskflowapi.annotations.tarefa.ApiResponseAtualizaStatusTarefa;
 import hugolini.taskflowapi.annotations.tarefa.ApiResponseCriaTarefa;
 import hugolini.taskflowapi.annotations.tarefa.ApiResponseDeletarTarefa;
 import hugolini.taskflowapi.dto.TarefaDTO;
@@ -29,7 +30,7 @@ public class TarefaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(tarefaService.criarTarefa(tarefa));
     }
 
-    @ApiResponseDeletarTarefa
+    @ApiResponseAtualizaStatusTarefa
     @Operation(summary = "Atualiza status de uma tarefa",
             description = "Este endpoint permite a atualização de status: PENDENTE, EM_ANDAMENTO ou CONCLUIDA" )
     @PutMapping("/{id}")
