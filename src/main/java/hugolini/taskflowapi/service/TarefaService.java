@@ -2,10 +2,10 @@ package hugolini.taskflowapi.service;
 
 import hugolini.taskflowapi.dto.TarefaDTO;
 import hugolini.taskflowapi.enums.StatusTarefaEnum;
-import hugolini.taskflowapi.exceptions.ProjetoNaoEncontradoException;
-import hugolini.taskflowapi.exceptions.TarefaDuplicadaException;
-import hugolini.taskflowapi.exceptions.TarefaNaoEncontradaException;
-import hugolini.taskflowapi.exceptions.TituloTarefaObrigatorioException;
+import hugolini.taskflowapi.exceptions.projeto.ProjetoNaoEncontradoException;
+import hugolini.taskflowapi.exceptions.tarefa.TarefaDuplicadaException;
+import hugolini.taskflowapi.exceptions.tarefa.TarefaNaoEncontradaException;
+import hugolini.taskflowapi.exceptions.tarefa.TituloTarefaObrigatorioException;
 import hugolini.taskflowapi.model.Projeto;
 import hugolini.taskflowapi.model.Tarefa;
 import hugolini.taskflowapi.repository.TarefaRepository;

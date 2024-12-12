@@ -1,10 +1,10 @@
 package hugolini.taskflowapi.service;
 
 import hugolini.taskflowapi.dto.ProjetoDTO;
-import hugolini.taskflowapi.dto.TarefasPorStatusDTO;
-import hugolini.taskflowapi.exceptions.ProjetoException;
-import hugolini.taskflowapi.exceptions.ProjetoNaoEncontradoException;
-import hugolini.taskflowapi.exceptions.ProjetosSemCadastroException;
+import hugolini.taskflowapi.exceptions.projeto.ProjetoException;
+import hugolini.taskflowapi.exceptions.projeto.ProjetoNaoEncontradoException;
+import hugolini.taskflowapi.exceptions.projeto.ProjetoNaoExisteException;
+import hugolini.taskflowapi.exceptions.projeto.ProjetosSemCadastroException;
 import hugolini.taskflowapi.model.Projeto;
 import hugolini.taskflowapi.model.Tarefa;
 import hugolini.taskflowapi.repository.ProjetoRepository;
@@ -67,14 +67,19 @@ public class ProjetoService {
         projetoRepository.deleteById(id);
     }
 
-    public Page<Projeto> buscarProjetosPorNome(String nome, Integer pagina, Integer itens, boolean exactMatch) {
+    public Page<Projeto> buscarProjetosPorNome(String nome, Integer pagina, Integer itens, boolean exactMatch) throws ProjetoNaoExisteException {
         Pageable pageable = PageRequest.of(pagina, itens);
+        Page<Projeto> projetos;
 
         if (exactMatch) {
-            return projetoRepository.findByNomeIgnoreCase(nome, pageable);
+            projetos = projetoRepository.findByNomeIgnoreCase(nome, pageable);
         } else {
-            return projetoRepository.findByNomeStartingWithIgnoreCase(nome, pageable);
+            projetos = projetoRepository.findByNomeStartingWithIgnoreCase(nome, pageable);
         }
+        if (projetos.isEmpty()) {
+            throw new ProjetoNaoExisteException();
+        }
+        return projetos;
     }
 
     public Map<String, Long> contarTarefasPorStatus(String projetoId) throws ProjetoNaoEncontradoException {
@@ -89,7 +94,6 @@ public class ProjetoService {
             String status = tarefa.getStatus().name();
             contagemPorStatus.put(status, contagemPorStatus.getOrDefault(status, 0L) + 1);
         }
-
         return contagemPorStatus;
     }
 
